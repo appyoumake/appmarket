@@ -1,0 +1,68 @@
+{
+	"app": {
+		"submitDetails" : {
+			
+		},
+		"uploadFile" : {
+			
+		},
+		"publish" : {
+			
+		},
+		"unPublish" : {
+			
+		},
+		"withdraw" : {
+			
+		},
+		"get" : {
+			
+		},
+		"getStatus" : {
+			
+		},
+		"addToGroup" : {
+			
+		},
+		"removeFromGroup" : {
+			
+		}
+	},
+	
+	"user": {
+		"register" : {
+			
+		},
+		"create" : {
+			
+		},
+		"publish" : {
+			
+		},
+		"get" : {
+			
+		},
+		"getRegistrations" : {
+			
+		},
+		"setState" : {
+			
+		},
+		"addToGroup" : {
+			
+		},
+		"removeFromGroup" : {
+			
+		}
+	},
+	
+	"login": {
+		"user": "string",
+		"password": "string"
+	},
+	
+	"logout": {
+		"token": "string:32" 
+	}
+	
+}
