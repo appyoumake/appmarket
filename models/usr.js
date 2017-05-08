@@ -68,6 +68,10 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods: {
       associate: function(models) {
         User.hasMany(models.Device, { foreignKey: 'userId'} );
+        User.hasMany(models.Version, { foreignKey: 'userId'} );
+        User.hasMany(models.App, { foreignKey: 'userId'} );
+        User.belongsToMany(models.Group, { through: 'UsersGroups', foreignKey: 'userId' });
+        User.belongsToMany(models.AccessGroup, { through: 'UsersAccessGroups', foreignKey: 'userId' });
       }
     }
   });

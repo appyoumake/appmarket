@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('AppsAccessGroups', {
+  var AppsAccessGroups = sequelize.define('AppsAccessGroups', {
     appId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -37,4 +37,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'apps_access_groups'
   });
+  
+  return AppsAccessGroups;
 };

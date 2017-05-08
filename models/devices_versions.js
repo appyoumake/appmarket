@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('DevicesVersions', {
+  var DevicesVersions = sequelize.define('DevicesVersions', {
     deviceId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -42,4 +42,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'devices_versions'
   });
+  
+  return DevicesVersions;
 };

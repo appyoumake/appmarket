@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('App', {
+  var App = sequelize.define('App', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -82,6 +82,16 @@ module.exports = function(sequelize, DataTypes) {
       field: 'icon'
     }
   }, {
-    tableName: 'app'
+    tableName: 'app', 
+		classMethods: {
+      associate: function(models) {
+        App.hasMany(models.Version, { foreignKey: 'appId'} );
+        App.hasMany(models.Screenshot, { foreignKey: 'appId'} );
+        App.belongsTo(models.User, { foreignKey: 'userId'} );
+        App.belongsToMany(models.AccessGroup, { through: 'UsersAccessGroups', foreignKey: 'userId' });
+      }
+    }
   });
+  
+  return App;
 };

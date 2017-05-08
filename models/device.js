@@ -62,6 +62,8 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods: {
       associate: function(models) {
         Device.belongsTo(models.User, { foreignKey: 'userId'} );
+        Device.hasMany(models.Token, { foreignKey: 'deviceId'} );
+        Device.belongsToMany(models.Version, { through: 'DevicesVersions', foreignKey: 'versionId' });
       }
 		}
   });

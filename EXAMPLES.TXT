@@ -1,0 +1,19 @@
+	models.User.findAll({ include: [ models.Device ] }).then(function(users) {
+    res.render('help', { 
+			title: 'Mlab app market',
+      users: users
+    });
+  });
+
+
+  each user in users
+    ul
+      li
+        = user.email
+          | &nbsp;
+        = user.id
+        if user.Devices
+          ul
+            each dev in user.Devices
+              li
+                = dev.os

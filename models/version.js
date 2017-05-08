@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Version', {
+  var Version = sequelize.define('Version', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -82,6 +82,15 @@ module.exports = function(sequelize, DataTypes) {
       field: 'state'
     }
   }, {
-    tableName: 'version'
+    tableName: 'version',
+		classMethods: {
+      associate: function(models) {
+        Version.belongsTo(models.User, { foreignKey: 'userId'} );
+        Version.belongsTo(models.App, { foreignKey: 'appId'} );
+        Version.belongsToMany(models.Device, { through: 'DevicesVersions', foreignKey: 'deviceId' });
+      }
+		}
   });
+  
+  return Version;
 };

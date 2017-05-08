@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Screenshot', {
+  var Screenshot = sequelize.define('Screenshot', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -34,6 +34,14 @@ module.exports = function(sequelize, DataTypes) {
       field: 'size'
     }
   }, {
-    tableName: 'screenshot'
+    tableName: 'screenshot',
+		classMethods: {
+      associate: function(models) {
+        Screenshot.belongsTo(models.App, { foreignKey: 'appId'} );
+      }
+		}
   });
+  
+  return Screenshot;
+  
 };

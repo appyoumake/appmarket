@@ -4,14 +4,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	models.User.findAll({ include: [ models.Device ] }).then(function(users) {
-    res.render('help', { 
-			title: 'Mlab app market',
-      users: users
-    });
+  res.render('help', { 
+    title: 'Mlab app market web service',
   });
-  
 });
+
 
 router.post('/login', function(req, res, next) {
   res.render('index', { title: 'Ba ba black sheep' });

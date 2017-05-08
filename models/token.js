@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Token', {
+  var Token = sequelize.define('Token', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -36,6 +36,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'expires'
     }
   }, {
-    tableName: 'token'
+    tableName: 'token',
+		classMethods: {
+      associate: function(models) {
+        Token.belongsTo(models.Device, { foreignKey: 'deviceId'} );
+      }
+		}
   });
+  return Token;
 };

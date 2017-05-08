@@ -2,13 +2,38 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  
+  h2 General functions
+  pre /
+  p Displays this page.
 
-  each user in users
-    li
-      = user.email
-      | &nbsp;
-      | user.id
-      each t in user.Device
-        li
-          = device.os
+  pre /login {email, password}
+  p Basic login function, returns a token to use for all further connectivity.
+
+  pre /logout {email, token}
+  p Logs the user out of the system and removes the token from the database.
+
+  h2 User related functions
+  pre /user/register
+  p Lets a non-logged in user register their details, the registration has to be approved before the user can log in.
+
+  pre /user/create
+  p Displays this page.
+
+  pre /user/get
+  p Displays this page.
+
+  pre /user/getRegistrations
+  p Displays this page.
+
+  pre /user/setState
+  p Displays this page.
+
+  pre /user/addToGroup
+  p Displays this page.
+
+  pre /user/removeFromGroup
+  p Displays this page.
+    
+
+  h2 App related functions

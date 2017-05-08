@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Group', {
+  var Group = sequelize.define('Group', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -39,6 +39,14 @@ module.exports = function(sequelize, DataTypes) {
       field: 'updated_at'
     }
   }, {
-    tableName: 'grp'
+    tableName: 'grp',
+		classMethods: {
+      associate: function(models) {
+        Group.belongsToMany(models.User, {through: 'UsersGroups', foreignKey: 'groupId'});
+        Group.hasMany(models.AccessGroup, { foreignKey: 'groupId'} );
+      }
+		}
   });
+  
+  return Group;
 };

@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('UsersGroups', {
+  var UsersGroups = sequelize.define('UsersGroups', {
     userId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -25,4 +25,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'users_groups'
   });
+  
+  return UsersGroups;
 };
