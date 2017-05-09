@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title
+  body
+    form#signup(name='login', method='post', action='/interactive/login')
+      label(for='email') Email Address
+      input.text(name='email', type='email')
+      label(for='password') Password
+      input(name='password', type='password')
+      input.btn(type='submit', value='Login')

@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
     groupId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
-        model: 'Group',
-        key: 'id'
-      },
       field: 'group_id'
     },
     name: {
@@ -33,21 +29,18 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: '1',
       field: 'enabled'
-    },
-    createdAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'updated_at'
     }
+
   }, {
     tableName: 'access_group',
+    underscored: true,
+    
+    indexes: [
+	    { fields: ['group_id'] },
+	    { fields: ['name'] },
+	    { fields: ['enabled'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         AccessGroup.belongsTo(models.Group, { foreignKey: 'groupId'} );

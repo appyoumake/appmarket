@@ -13,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
-      field: 'email'
+      field: 'email',
+      validate: { isEmail: true }
     },
     firstName: {
       type: DataTypes.STRING(255),
@@ -36,35 +37,39 @@ module.exports = function(sequelize, DataTypes) {
       field: 'salt'
     },
     role: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.ENUM('ROLE_USER','ROLE_ADMIN','ROLE_SUPER_ADMIN'),
       allowNull: true,
-      defaultValue: 'user',
+      defaultValue: 'ROLE_USER',
       field: 'role'
     },
     state: {
-      type: DataTypes.ENUM('registered','accepted','rejected','disabled'),
+      type: DataTypes.ENUM('registered','active','inactive','rejected','disabled'),
       allowNull: true,
       field: 'state'
     },
-    createdAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'updated_at'
+    lastAccess: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'last_access'
     },
     deletedAt: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
       field: 'deleted_at'
     }
   }, {
-    tableName: 'usr', 
+    tableName: 'usr',
+    underscored: true, 
+    
+    indexes: [
+	    { fields: ['last_name'] },
+	    { fields: ['first_name'] },
+	    { fields: ['role'] },
+	    { fields: ['state'] },
+	    { fields: ['last_access'] },
+	    { fields: ['deleted_at'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         User.hasMany(models.Device, { foreignKey: 'userId'} );

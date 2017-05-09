@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
     deviceId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
-        model: 'Device',
-        key: 'id'
-      },
       field: 'device_id'
     },
     token: {
@@ -23,20 +19,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'token'
     },
-		createdAt: {
-      type: DataTypes.TIME,
-      allowNull: true,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'created_at'
-    },
     expires: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
       field: 'expires'
     }
   }, {
     tableName: 'token',
+    underscored: true,
+    
+    indexes: [
+	    { fields: ['device_id'] },
+      { fields: ['expires'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         Token.belongsTo(models.Device, { foreignKey: 'deviceId'} );

@@ -6,25 +6,23 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      references: {
-        model: 'User',
-        key: 'id'
-      },
       field: 'user_id'
     },
     groupId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      references: {
-        model: 'Group',
-        key: 'id'
-      },
       field: 'group_id'
     }
   }, {
-    tableName: 'users_groups'
-  });
+    tableName: 'users_groups',
+    underscored: true,
+      
+    indexes: [
+	    { fields: ['user_id'] },
+	    { fields: ['group_id'] }
+    ]
+});
   
   return UsersGroups;
 };

@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
     appId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
-        model: 'App',
-        key: 'id'
-      },
       field: 'app_id'
     },
     image: {
@@ -35,6 +31,12 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'screenshot',
+    underscored: true,
+    
+    indexes: [
+	    { fields: ['app_id'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         Screenshot.belongsTo(models.App, { foreignKey: 'appId'} );

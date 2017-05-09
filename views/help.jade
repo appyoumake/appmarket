@@ -37,3 +37,21 @@ block content
     
 
   h2 App related functions
+
+  form(action='http://localhost:3000/app/uploadFile', method='post', enctype='multipart/form-data')
+    p
+      mlab_guid
+      input(type='text', name='mlab_guid', value='4eb5046865ff5258e339e124a909e3da')
+    p
+      version
+      input(type='text', name='version', value='1.0')
+    p
+      os
+      input(type='text', name='os', value='android')
+      input(type='hidden', name='token', value='6739ff54-e6a7-416d-a56b-0e6eaef41632')
+      
+    p
+      input(type='file', name='app_file')
+    p
+      button(type='submit') Submit
+

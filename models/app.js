@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
     userId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
-        model: 'User',
-        key: 'id'
-      },
       field: 'user_id'
     },
     packageId: {
@@ -82,7 +78,20 @@ module.exports = function(sequelize, DataTypes) {
       field: 'icon'
     }
   }, {
-    tableName: 'app', 
+    tableName: 'app',
+    underscored: true, 
+    
+    indexes: [
+	    { fields: ['user_id'] },
+	    { fields: ['name'] },
+	    { fields: ['state'] },
+	    { fields: ['category1'] },
+	    { fields: ['category2'] },
+	    { fields: ['category3'] },
+      { type: 'FULLTEXT', fields: ['description'] },
+      { type: 'FULLTEXT', fields: ['keywords'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         App.hasMany(models.Version, { foreignKey: 'appId'} );

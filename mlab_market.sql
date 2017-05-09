@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `usr` (
   `state` ENUM('registered', 'accepted', 'rejected', 'disabled'),
 	`created_at` TIMESTAMP NOT NULL DEFAULT now(),
 	`updated_at` TIMESTAMP NOT NULL DEFAULT now(),
+	`last_access` TIMESTAMP NULL,
 	`deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`),
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `usr` (
 	KEY (`state`),
 	KEY (`created_at`),
 	KEY (`updated_at`),
+	KEY (`last_access`),
 	KEY (`deleted_at`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -116,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   `expires` TIMESTAMP NULL DEFAULT now(),
   PRIMARY KEY (`id`),
 	KEY (device_id),
+  KEY (expires),
   CONSTRAINT 
     FOREIGN KEY (`device_id`)
     REFERENCES `device` (`id`)
@@ -129,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `token` (
 -- ***************APP TABLES ***********************
 
 -- -----------------------------------------------------
--- Table `apps`
+-- Table `app`
 -- user_id is the user that uploaded it initially
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `app` ;
@@ -257,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Table structure for table `users_subgroups`
+-- Table structure for table `users_access_groups`
 --
 
 CREATE TABLE IF NOT EXISTS `users_access_groups` (

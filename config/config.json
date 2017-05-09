@@ -4,20 +4,29 @@
     "password": "ntoctomto",
     "database": "appmarket",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "passport": {
+      "key": "snaffblokar"
+    }
   },
   "test": {
     "username": "root",
     "password": "ntoctomto",
     "database": "appmarket",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "passport": {
+      "key": "snaffblokar"
+    }
   },
   "production": {
     "username": "root",
     "password": "ntoctomto",
     "database": "appmarket",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "passport": {
+      "key": "snaffblokar"
+    }
   }
 }

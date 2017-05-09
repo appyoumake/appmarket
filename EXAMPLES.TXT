@@ -1,3 +1,66 @@
+6739ff54-e6a7-416d-a56b-0e6eaef41632
+
+TODO
+
+INDEX
+  |logout (zap token, thats all)
+
+APP
+  submitDetails
+  uploadFile
+  publish
+  unPublish
+  withdraw
+  get
+  |getStatus
+  query
+  |addToGroup
+  |removeFromGroup
+
+USER
+  *create
+  *get
+  |getRegistrations
+  |setState
+  |addToGroup
+  |removeFromGroup
+  
+GENERAL
+  update expire token every time connect
+  
+{"password": "password", "email": "arild.bergh@bergh.fm", "first_name": "arild", "last_name": "bergh"}
+
+//110ec58a-a0f2-4ac4-8393-c866d813b8d1
+---------------
+LOGIN+++++++++++
+/* old
+
+router.post('/login', passport.authenticate('local-signup', {
+    session: false,
+    successRedirect: '/?msg=login_ok',
+    failureRedirect: '/login'
+  }
+));
+
+ */
+
+/* example
+
+app.get('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login'); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/users/' + user.username);
+    });
+  })(req, res, next);
+});
+
+ */
+
+++++++++++++++
+
 	models.User.findAll({ include: [ models.Device ] }).then(function(users) {
     res.render('help', { 
 			title: 'Mlab app market',
@@ -17,3 +80,63 @@
             each dev in user.Devices
               li
                 = dev.os
+
+
+
+CREATE TABLE IF NOT EXISTS `users_access_groups` (
+  `user_id` INTEGER(11) NOT NULL , 
+  `access_group_id` INTEGER(11) NOT NULL , 
+  `created_at` DATETIME NOT NULL, 
+  `updated_at` DATETIME, 
+  `AccessGroupId` INTEGER(11), 
+  UNIQUE `users_access_groups_userId_accessGroupId_unique` (`user_id`, `access_group_id`), 
+  UNIQUE `users_access_groups_userId_AccessGroupId_unique` (`AccessGroupId`), 
+  PRIMARY KEY (`user_id`, `access_group_id`), 
+  FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, 
+  FOREIGN KEY (`access_group_id`) REFERENCES `access_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, 
+  FOREIGN KEY (`AccessGroupId`) REFERENCES `access_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `access_group` (
+`id` INTEGER(11) NOT NULL auto_increment , 
+`group_id` INTEGER(11) NOT NULL, 
+`name` VARCHAR(255) NOT NULL, 
+`description` TEXT, 
+`enabled` INTEGER(1) DEFAULT '1', 
+`created_at` DATETIME NOT NULL, 
+`updated_at` DATETIME NOT NULL, 
+PRIMARY KEY (`id`), 
+FOREIGN KEY (`group_id`) REFERENCES `grp` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB
+
+indexes: [
+      { unique: true, fields: ['email'] },
+      { fields: ['author', 'status'] }
+    ],    
+
+
+    
+    indexes: [
+	    { fields: ['user_id'] },
+	    { fields: ['uid'] },
+	    { fields: ['os', 'os_version'] },
+	    { fields: ['enabled'] },
+	    { fields: ['created_at'] },
+	    { fields: ['updated_at'] },
+	    { fields: ['last_access'] }
+    ],
+    
+--------------
+Executing (default): CREATE TABLE IF NOT EXISTS `grp` (`id` INTEGER(11) NOT NULL auto_increment , `name` VARCHAR(255) NOT NULL UNIQUE, `description` TEXT, `enabled` INTEGER(1) DEFAULT '1', `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `grp_name_unique` (`name`), PRIMARY KEY (`id`)) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `access_group` (`id` INTEGER(11) NOT NULL auto_increment , `group_id` INTEGER(11) NOT NULL, `name` VARCHAR(255) NOT NULL, `description` TEXT, `enabled` INTEGER(1) DEFAULT '1', `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, PRIMARY KEY (`id`), FOREIGN KEY (`group_id`) REFERENCES `grp` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `usr` (`id` INTEGER(11) NOT NULL auto_increment , `email` VARCHAR(255) NOT NULL UNIQUE, `first_name` VARCHAR(255), `last_name` VARCHAR(255), `password` VARCHAR(255), `salt` VARCHAR(255), `role` VARCHAR(20) DEFAULT 'user', `state` ENUM('registered', 'accepted', 'rejected', 'disabled'), `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, `deleted_at` TIME, UNIQUE `usr_email_unique` (`email`), PRIMARY KEY (`id`)) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `app` (`id` INTEGER(11) NOT NULL auto_increment , `user_id` INTEGER(11) NOT NULL, `package_id` VARCHAR(255) UNIQUE, `mlab_guid` VARCHAR(255) UNIQUE, `name` VARCHAR(255), `description` TEXT, `keywords` TEXT, `category1` VARCHAR(255), `category2` VARCHAR(255), `category3` VARCHAR(255), `publisher_org_name` VARCHAR(255), `state` ENUM('published', 'unpublished', 'withdrawn'), `size` INTEGER(11) DEFAULT '0', `icon` MEDIUMBLOB, `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `app_packageId_unique` (`package_id`), UNIQUE `app_mlabGuid_unique` (`mlab_guid`), PRIMARY KEY (`id`), FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `apps_access_groups` (`app_id` INTEGER(11), `access_group_id` INTEGER(11) NOT NULL , `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `apps_access_groups_accessGroupId_app_id_unique` (`access_group_id`, `app_id`), PRIMARY KEY (`access_group_id`), FOREIGN KEY (`app_id`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`access_group_id`) REFERENCES `access_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `device` (`id` INTEGER(11) NOT NULL auto_increment , `user_id` INTEGER(11) NOT NULL, `uid` VARCHAR(255), `os` VARCHAR(25), `os_version` VARCHAR(25) NOT NULL DEFAULT '1', `enabled` INTEGER(1) DEFAULT '1', `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, `last_access` TIME, PRIMARY KEY (`id`), FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `version` (`id` INTEGER(11) NOT NULL auto_increment , `app_id` INTEGER(11) NOT NULL, `user_id` INTEGER(11) NOT NULL, `superceded_by_version_id` INTEGER(11), `version` VARCHAR(25) NOT NULL DEFAULT '1.0.0', `update_notes` TEXT, `os` VARCHAR(25) NOT NULL, `os_version` VARCHAR(25) NOT NULL DEFAULT '1', `download_count` INTEGER(11) DEFAULT '0', `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, `state` ENUM('waiting_for_file', 'ready', 'superceded'), PRIMARY KEY (`id`), FOREIGN KEY (`app_id`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `devices_versions` (`device_id` INTEGER(11) NOT NULL , `version_id` INTEGER(11) NOT NULL , `state` ENUM('unknown', 'downloaded', 'used', 'uninstalled'), `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `devices_versions_deviceId_versionId_unique` (`device_id`, `version_id`), PRIMARY KEY (`device_id`, `version_id`), FOREIGN KEY (`device_id`) REFERENCES `version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`version_id`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `screenshot` (`id` INTEGER(11) NOT NULL auto_increment , `app_id` INTEGER(11) NOT NULL, `image` MEDIUMBLOB, `mimetype` VARCHAR(50), `size` INTEGER(11), `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, PRIMARY KEY (`id`), FOREIGN KEY (`app_id`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `token` (`id` INTEGER(11) NOT NULL auto_increment , `device_id` INTEGER(11) NOT NULL, `token` VARCHAR(255), `created_at` DATETIME NOT NULL, `expires` TIME, `updated_at` DATETIME NOT NULL, PRIMARY KEY (`id`), FOREIGN KEY (`device_id`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `users_access_groups` (`user_id` INTEGER(11) NOT NULL , `access_group_id` INTEGER(11), `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `users_access_groups_userId_accessGroupId_unique` (`user_id`, `access_group_id`), UNIQUE `users_access_groups_userId_access_group_id_unique` (`access_group_id`), PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`access_group_id`) REFERENCES `access_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+Executing (default): CREATE TABLE IF NOT EXISTS `users_groups` (`user_id` INTEGER(11) NOT NULL , `group_id` INTEGER(11) NOT NULL , `created_at` DATETIME NOT NULL, `updated_at` DATETIME NOT NULL, UNIQUE `users_groups_userId_groupId_unique` (`user_id`, `group_id`), PRIMARY KEY (`user_id`, `group_id`), FOREIGN KEY (`user_id`) REFERENCES `usr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`group_id`) REFERENCES `grp` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+------------

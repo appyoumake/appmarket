@@ -25,21 +25,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: '1',
       field: 'enabled'
-    },
-    createdAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'updated_at'
     }
   }, {
     tableName: 'grp',
+    underscored: true,
+    
+    indexes: [
+	    { fields: ['enabled'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         Group.belongsToMany(models.User, {through: 'UsersGroups', foreignKey: 'groupId'});

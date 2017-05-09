@@ -1,0 +1,183 @@
+
+.clear {
+	clear: both;
+}
+
+.hideNoSpace {
+	display: none;
+}
+
+.hideTakeSpace {
+	visibility: hidden;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	margin-top: 0;
+	background-image: url("/images/topTile.png");
+	background-repeat: repeat-x;
+}
+
+.row_top {
+	width: 100%;
+	height: 78px;
+	padding: 0;
+}
+
+.row_content {
+	margin-left: 190px;
+}
+
+.img {
+	z-index: 1;
+}
+
+.img_banner {
+	background-color: lightgrey;
+	opacity: 0.7;
+	z-index: 2;
+	margin-top: -40px;
+	height: 36px;
+	width: 724px;
+}
+
+.img_heading {
+	z-index: 3;
+	margin-top: -30px;
+	margin-left: 10px;
+	color: black;
+	font-family: Arial;
+	font-size: 22px;
+}
+
+.search {
+	margin-top: 15px;
+}
+
+.search_input {
+	margin-top: 20px;
+	margin-left: 215px;
+	border-radius: 4px 0px 0px 4px;
+	padding: 4px;
+	width: 250px;
+	font-size: 18px;
+	font-family: Arial;
+	color: #555555;
+	border: 1px solid #d3d3d3;
+}
+
+.search_img {
+	background-color: lightgrey;
+	border-radius: 0px 4px 4px 0px;
+	padding: 4px;
+	padding-top: 3px;
+	vertical-align: bottom;
+}
+
+.dropdown {
+	border-radius: 4px;
+	padding: 3px;
+	width: 150px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #555555;
+	border: 1px solid #d3d3d3;
+	background: #e6e6e6 url("/images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
+}
+
+.arrow {
+	vertical-align: bottom;
+	padding: 0px 20px;
+	width: 18px;
+}
+
+.apps {
+	background-color: #eee;
+	width: 708px;
+	padding: 10px;
+	margin-top: 25px;
+	padding-bottom: 281px;
+	margin-bottom: 40px;
+}
+
+.welcome_heading {
+	margin-top: 0px;
+	color: #2f2f2f;
+	;
+	font-family: Arial;
+	font-size: 18px;
+}
+
+.welcome_text {
+	color: #2f2f2f;
+	;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.App_section_heading {
+	margin-top: 40px;
+	color: #2f2f2f;
+	;
+	font-family: Arial;
+	font-size: 22px;
+}
+
+.all_apps {
+}
+
+.app_box {
+	width: 231px;
+	border-color: #ddd;
+	border-style: solid;
+	border-radius: 2px;
+	border-width: thin;
+	float: left;
+	margin-right: 3px;
+}
+
+.app_box_top {
+	background-color: #ddd;
+	padding: 19px;
+}
+
+.app_heading {
+	font-family: Arial;
+	font-size: 13px;
+	float: left;
+	margin-left: 20px;
+	margin-top: -33px;
+}
+
+.app_icon {
+	padding: 1px;
+	width: 30px;
+	float: left;
+	margin-top: -16px;
+	margin-left: -15px;
+}
+
+.app_box_content {
+	background-color: white;
+	padding: 2px;
+	font-family: Arial;
+	font-size: 11px;
+	height: 73px;
+}
+
+.app_description {
+	padding: 2px 4px 10px 10px;
+}
+
+.app_info1 {
+	float: left;
+	color: #aaa;
+	padding-left: 10px;
+}
+
+.app_info2 {
+	float: right;
+	color: #aaa;
+	padding-right: 10px;
+}

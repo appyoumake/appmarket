@@ -1,68 +1,151 @@
 {
 	"app": {
 		"submitDetails" : {
-			
+      "token": "token",
+      "email": "email",
+      "package_id": "string",
+      "mlab_guid": "string:32",
+      "name": "string",
+      "description": "string",
+      "keywords": "string",
+      "category1": "string",
+      "state": ["published", "unpublished", "withdrawn"],
+      "icon": "string",
+      "replace_or_create_new_version": "bool",
+      "version": "string",
+      "update_notes": "string",
+      "os": "string",
+      "os_version": "string"
 		},
+    
 		"uploadFile" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32",
+      "app_file": "file",
+      "version": "string",
+      "os": "string"
 		},
+    
 		"publish" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32"      
 		},
+    
 		"unPublish" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32"      
 		},
+    
 		"withdraw" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32"      
 		},
-		"get" : {
-			
+
+ 		"get" : {
+      "token": "token",
+      "version": "numeric",
+      "os": "string"
 		},
+    
 		"getStatus" : {
-			
+			"mlab_guid": "string:32",
+      "current_version": "string",
+      "os": "string"
 		},
+
+		"query" : {
+      "token": "token",
+      "query": "object",
+      "page_num": "numeric",
+      "items_per_page": "numeric"
+		},
+    
+		"disableGroup" : {
+      "token": "token",
+			"mlab_guid": "string:32",
+			"group_id": "numeric"
+		},
+    
 		"addToGroup" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32",
+			"group_id": "numeric"
 		},
+    
 		"removeFromGroup" : {
-			
+      "token": "token",
+			"mlab_guid": "string:32",
+			"group_id": "numeric"
 		}
 	},
 	
 	"user": {
 		"register" : {
-			
+      "email": "email",
+      "first_name": "string",
+      "last_name": "string",
+      "password": "string"
 		},
+    
 		"create" : {
-			
+      "token": "token",
+      "email": "email",
+      "first_name": "string",
+      "last_name": "string",
+      "password": "string",
+      "role": ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN"],
+      "state": ["registered","active","inactive","rejected","disabled"]
 		},
-		"publish" : {
-			
-		},
+    
 		"get" : {
-			
+      "token": "token",
+      "query": "object"
 		},
+    
 		"getRegistrations" : {
-			
+      "token": "token"			
 		},
+    
 		"setState" : {
-			
+      "token": "token",			
+			"email": "email",
+			"state": ["registered","active","inactive","rejected","disabled"]
 		},
+
 		"addToGroup" : {
-			
+      "token": "token",
+			"email": "email",
+			"group_id": "numeric"
 		},
+    
 		"removeFromGroup" : {
-			
-		}
+      "token": "token",
+			"email": "email",
+			"group_id": "numeric"
+		},
+    
+    "addDevice": {
+      "token": "token",
+			"email": "email",
+      "device_id": "string",
+      "os": "string",
+      "os_version": "string"
+    }
 	},
 	
 	"login": {
-		"user": "string",
-		"password": "string"
+    "has_verification": true,
+		"email": "email",
+		"password": "string",
+    "device_id": "string", 
+    "os": "string",
+    "os_version": "string"
 	},
 	
 	"logout": {
-		"token": "string:32" 
+    "has_verification": true,
+    "email": "email",
+		"token": "token" 
 	}
 	
 }

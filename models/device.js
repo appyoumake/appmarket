@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
     userId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
-        model: 'User',
-        key: 'id'
-      },
       field: 'user_id'
     },
     uid: {
@@ -40,25 +36,23 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '1',
       field: 'enabled'
     },
-    createdAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'updated_at'
-    },
     lastAccess: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
       field: 'last_access'
     }
   }, {
     tableName: 'device',
+    underscored: true,
+    
+    indexes: [
+	    { fields: ['user_id'] },
+	    { fields: ['uid'] },
+	    { fields: ['os', 'os_version'] },
+	    { fields: ['enabled'] },
+	    { fields: ['last_access'] }
+    ],
+    
 		classMethods: {
       associate: function(models) {
         Device.belongsTo(models.User, { foreignKey: 'userId'} );
