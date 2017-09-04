@@ -1,32 +1,4 @@
 6739ff54-e6a7-416d-a56b-0e6eaef41632
-
-TODO
-
-INDEX
-  |logout (zap token, thats all)
-
-APP
-  submitDetails
-  uploadFile
-  publish
-  unPublish
-  withdraw
-  get
-  |getStatus
-  query
-  |addToGroup
-  |removeFromGroup
-
-USER
-  *create
-  *get
-  |getRegistrations
-  |setState
-  |addToGroup
-  |removeFromGroup
-  
-GENERAL
-  update expire token every time connect
   
 {"password": "password", "email": "arild.bergh@bergh.fm", "first_name": "arild", "last_name": "bergh"}
 

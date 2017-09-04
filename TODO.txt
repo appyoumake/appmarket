@@ -1,0 +1,15 @@
+TODO
+ * Check token when submit file
+ * update token expiry every time connect with valid token
+ * Add token delete code to index/logout, also delete when find old one in token check
+ * Create 2 queries, one that uses one string for title, category, keywords and description and weight it
+  * Support empty query for browsing
+  * Support paging
+ * in app/uploadFile update version record after save
+ * Support setting state flag via app/publish, app/unPublish, app/withdraw
+ * Add code to download file through app/get and update the counter
+ * app/getStatus code
+ * user/getregistrations
+ * user/setState
+
+Add this to github issues: addToGroup/removeFromGroup for user and app
