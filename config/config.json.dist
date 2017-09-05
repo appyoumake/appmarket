@@ -1,0 +1,32 @@
+{
+  "development": {
+    "username": "root",
+    "password": "pass",
+    "database": "appmarket",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "passport": {
+      "key": "unique_key"
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": "pass",
+    "database": "appmarket",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "passport": {
+      "key": "unique_key"
+    }
+  },
+  "production": {
+    "username": "root",
+    "password": "pass",
+    "database": "appmarket",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "passport": {
+      "key": "unique_key"
+    }
+  }
+}
